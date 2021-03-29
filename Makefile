@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/29 17:16:35 by tbruinem      #+#    #+#                  #
-#    Updated: 2021/03/29 17:32:20 by tbruinem      ########   odam.nl          #
+#    Updated: 2021/03/29 18:15:02 by tbruinem      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,9 @@ INCL_DIR = ./incl/
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
+ifdef DEBUG
+	CFLAGS += -g -fsanitize=address
+endif
 
 SRC =	list.c \
 		memory.c \
@@ -33,11 +36,6 @@ INCL_FOLDERS = $(dir $(HEADERS))
 INCL_FOLDERS := $(sort $(INCL_FOLDERS))
 
 INCL := $(addprefix -I ,$(INCL_FOLDERS))
-
-test:
-	echo $(SRC)
-	echo $(OBJ)
-	echo $(INCL)
 
 all: $(NAME)
 	@mkdir -p ./html/uploads
@@ -59,6 +57,6 @@ clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f checker push_swap
 
 re: fclean all

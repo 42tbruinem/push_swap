@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:42:20 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/29 18:12:16 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/29 18:16:54 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_stack	*stack_init(size_t size, int *content)
 	stack->tail = NULL;
 	while (i < size)
 	{
-		stack_pushfront(stack, list_new(content[i]));
+		stack_pushback(stack, list_new(content[i]));
 		i++;
 	}
 	return (stack);

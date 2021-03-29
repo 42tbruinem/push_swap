@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:04 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/29 18:04:03 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/29 18:13:58 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	print_stack(t_stack *stack)
 	begin = stack->head;
 	while (i < stack->size)
 	{
-		write(1, begin->content, sizeof(int));
+		write(1, &begin->content, sizeof(int));
 		i++;
 		begin = begin->next;
 	}
