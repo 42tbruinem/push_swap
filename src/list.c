@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:46:17 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/29 16:50:55 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/29 18:05:24 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_list	*list_popback(t_list **list)
 t_list	*list_popfront(t_list **list)
 {
 	t_list	*first;
-	t_list	*elem;
 
 	first = *list;
 	*list = (*list)->next;
@@ -61,11 +60,12 @@ void	list_pushback(t_list **list, t_list *elem)
 
 void	list_pushfront(t_list **list, t_list *elem)
 {
-	t_list	*oldhead;
-	
-	oldhead = *list;
-	(*list)->next = oldhead;
-	(*list)->prev = oldhead;
+	t_list	*head;
+
+	head = *list;
+	*list = elem;
+	(*list)->next = head;
+	head->prev = (*list);
 }
 
 void	list_clear(t_list *list)

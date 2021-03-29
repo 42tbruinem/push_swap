@@ -6,11 +6,12 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 16:26:07 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/29 17:15:15 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/29 18:11:16 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
+#include <stdlib.h>
 
 /*
 **		UTILS
@@ -88,14 +89,14 @@ void	rr(t_memory *memory)
 }
 void	rra(t_memory *memory)
 {
-	t_list	old_bottom;
+	t_list	*old_bottom;
 
 	old_bottom = stack_popback(memory->a);
 	stack_pushfront(memory->a, old_bottom);
 }
 void	rrb(t_memory *memory)
 {
-	t_list	old_bottom;
+	t_list	*old_bottom;
 
 	old_bottom = stack_popback(memory->b);
 	stack_pushfront(memory->b, old_bottom);
@@ -110,10 +111,15 @@ void	rrr(t_memory *memory)
 **		MEMORY_FUNCTIONS
 */
 
-int		memory_init(t_memory *memory, size_t size, int *content)
+int		memory_init(t_memory *memory, int *content, size_t size)
 {
 	memory->a = stack_init(size, content);
+	if (!memory->a)
+		return (0);
 	memory->b = stack_init(0, NULL);
+	if (!memory->b)
+		return (0);
+	return (1);
 }
 
 ssize_t	memory_get_operation(char *operation)
@@ -135,7 +141,7 @@ ssize_t	memory_get_operation(char *operation)
 	i = 0;
 	while (i < sizeof(op_names) / sizeof(char *))
 	{
-		if (!util_strcmp(operation, op_names[i]))
+		if (!util_strcmp(operation, (char *)op_names[i]))
 			return (i);
 	}
 	return (-1);
@@ -143,9 +149,9 @@ ssize_t	memory_get_operation(char *operation)
 
 void	memory_perform_operation(t_memory *memory, char *operation)
 {
-	ssize_t			op_index;
+	ssize_t			index;
 	static const	t_operation		operations[] = {
-		[OP_SA] = &sa
+		[OP_SA] = &sa,
 		[OP_SB] = &sb,
 		[OP_SS] = &ss,
 		[OP_PA] = &pa,
@@ -157,10 +163,10 @@ void	memory_perform_operation(t_memory *memory, char *operation)
 		[OP_RRB] = &rrb,
 		[OP_RRR] = &rrr,
 	};
-	op = memory_get_operation(operation);
-	if (op == -1)
+	index = memory_get_operation(operation);
+	if (index == -1)
 		exit(error(ERR_INVALID_OP, sizeof(ERR_INVALID_OP), 1));
-	operations[op](memory);
+	operations[index](memory);
 }
 
 void	memory_destroy(t_memory *memory)
