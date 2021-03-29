@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:46:17 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/29 18:16:08 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/30 00:11:55 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	list_pushfront(t_list **list, t_list *elem)
 
 	head = *list;
 	*list = elem;
-	(*list)->next = head;
+	elem->next = head;
 	if (head)
-		head->prev = (*list);
+		head->prev = elem;
 }
 
 void	list_clear(t_list *list)

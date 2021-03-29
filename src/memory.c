@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 16:26:07 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/29 18:11:16 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/30 00:35:38 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,12 @@ void	rrr(t_memory *memory)
 /*
 **		MEMORY_FUNCTIONS
 */
+
+void	memory_print(t_memory *memory)
+{
+	stack_print("STACK A: ", sizeof("STACK A: "), memory->a);
+	stack_print("STACK B: ", sizeof("STACK B: "), memory->b);
+}
 
 int		memory_init(t_memory *memory, int *content, size_t size)
 {

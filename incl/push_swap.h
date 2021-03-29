@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/29 18:12:43 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/30 00:34:58 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stddef.h>
 #include <unistd.h>
 
-#define ERR_MEMFAIL	"Error: malloc failed.\n"
+#define ERR_MEMFAIL		"Error: malloc failed.\n"
 #define ERR_INVALID_ARG	"Error: invalid argument provided.\n"
 #define ERR_INVALID_OP	"Error: invalid operation requested.\n"
 
@@ -26,17 +26,17 @@ typedef struct s_list t_list;
 
 struct s_list
 {
-    t_list  *next;
+	t_list	*next;
 	t_list	*prev;
-    int		content;
+	int		content;
 };
 
 typedef struct  s_stack
 {
-    t_list      *head;
+	t_list		*head;
 	t_list		*tail;
-    size_t		size;
-}               t_stack;
+	size_t		size;
+}				t_stack;
 
 typedef struct	s_memory
 {
@@ -66,6 +66,7 @@ t_list	*stack_popfront(t_stack *stack);
 t_list	*stack_popback(t_stack *stack);
 void 	stack_swap(t_stack *stack);
 void	stack_destroy(t_stack *stack);
+void	stack_print(char *title, size_t title_size, t_stack *stack);
 
 /*
 **		OPERATIONS
@@ -86,6 +87,8 @@ enum	e_op
 	OP_RRR
 };
 
+void	memory_destroy(t_memory *memory);
+void	memory_print(t_memory *memory);
 int		memory_init(t_memory *memory, int *content, size_t size);
 
 typedef void (*t_operation)(t_memory *memory);
