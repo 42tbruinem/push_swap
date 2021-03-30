@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 16:26:07 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/30 00:35:38 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/30 12:14:51 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ra(t_memory *memory)
 {
 	t_list	*old_top;
 
+	if (memory->a->size < 2)
+		return ;
 	old_top = stack_popfront(memory->a);
 	stack_pushback(memory->a, old_top);
 }
@@ -79,6 +81,8 @@ void	rb(t_memory *memory)
 {
 	t_list	*old_top;
 
+	if (memory->b->size < 2)
+		return ;
 	old_top = stack_popfront(memory->b);
 	stack_pushback(memory->b, old_top);
 }
@@ -91,6 +95,8 @@ void	rra(t_memory *memory)
 {
 	t_list	*old_bottom;
 
+	if (memory->a->size < 2)
+		return ;
 	old_bottom = stack_popback(memory->a);
 	stack_pushfront(memory->a, old_bottom);
 }
@@ -98,6 +104,8 @@ void	rrb(t_memory *memory)
 {
 	t_list	*old_bottom;
 
+	if (memory->b->size < 2)
+		return ;
 	old_bottom = stack_popback(memory->b);
 	stack_pushfront(memory->b, old_bottom);
 }
@@ -149,6 +157,7 @@ ssize_t	memory_get_operation(char *operation)
 	{
 		if (!util_strcmp(operation, (char *)op_names[i]))
 			return (i);
+		i++;
 	}
 	return (-1);
 }

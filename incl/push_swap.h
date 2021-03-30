@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/30 00:34:58 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/30 00:37:26 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ enum	e_op
 	OP_RRR
 };
 
+void	memory_perform_operation(t_memory *memory, char *operation);
 void	memory_destroy(t_memory *memory);
 void	memory_print(t_memory *memory);
 int		memory_init(t_memory *memory, int *content, size_t size);

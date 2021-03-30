@@ -6,12 +6,11 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:46:17 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/30 00:11:55 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/30 13:24:59 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
-
 #include <stdlib.h>
 
 t_list	*list_popback(t_list **list)
@@ -22,12 +21,15 @@ t_list	*list_popback(t_list **list)
 	last = *list;
 	if (*list == NULL)
 		return (NULL);
-	if ((*list)->prev == NULL)
-		return (list_popfront(list));
 	while (last->next)
 		last = last->next;
+	if (*list == last)
+		return (list_popfront(list));
 	elem = last;
+	last->prev->next = NULL;
 	last = last->prev;
+	elem->next = NULL;
+	elem->prev = NULL;
 	return (elem);
 }
 
@@ -36,9 +38,13 @@ t_list	*list_popfront(t_list **list)
 	t_list	*first;
 
 	first = *list;
+	if (!first)
+		return (NULL);
 	*list = (*list)->next;
-	if (first->next)
-		first->next->prev = first->prev;
+	if (*list)
+		(*list)->prev = NULL;
+	first->next = NULL;
+	first->prev = NULL;
 	return (first);
 }
 

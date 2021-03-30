@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:42:20 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/30 00:36:06 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/30 12:16:04 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ void	stack_print(char *title, size_t title_size, t_stack *stack)
 
 t_list	*stack_popback(t_stack *stack)
 {
+	t_list	*elem;
+
 	if (!stack->size)
 		return (NULL);
-	t_list	*elem;
-	stack->tail = stack->tail->prev;
+	if (stack->tail)
+		stack->tail = stack->tail->prev;
 	elem = list_popback(&stack->head);
 	stack->size--;
 	return (elem);
@@ -65,9 +67,10 @@ t_list	*stack_popback(t_stack *stack)
 
 t_list	*stack_popfront(t_stack *stack)
 {
+	t_list	*elem;
+
 	if (!stack->size)
 		return (NULL);
-	t_list	*elem;
 	if (stack->size == 1)
 		stack->tail = NULL;
 	elem = list_popfront(&stack->head);
@@ -77,6 +80,8 @@ t_list	*stack_popfront(t_stack *stack)
 
 void	stack_pushback(t_stack *stack, t_list *elem)
 {
+	if (!elem)
+		exit(error(ERR_MEMFAIL, sizeof(ERR_MEMFAIL), 1));
 	list_pushback(&stack->head, elem);
 	stack->tail = elem;
 	stack->size++;
@@ -101,10 +106,12 @@ void	stack_swap(t_stack *stack)
 	t_list	*one;
 	t_list	*two;
 
+	if (stack->size < 2)
+		return ;
 	one = stack_popfront(stack);
 	two = stack_popfront(stack);
-	stack_pushfront(stack, two);
 	stack_pushfront(stack, one);
+	stack_pushfront(stack, two);
 }
 
 t_stack	*stack_init(size_t size, int *content)
