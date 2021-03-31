@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/30 00:37:26 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/31 11:17:59 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 #include <stddef.h>
 #include <unistd.h>
+#include <stdbool.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 256
+#endif
 
 #define ERR_MEMFAIL		"Error: malloc failed.\n"
 #define ERR_INVALID_ARG	"Error: invalid argument provided.\n"
@@ -105,5 +110,12 @@ void	rr(t_memory *memory);
 void	rra(t_memory *memory);
 void	rrb(t_memory *memory);
 void	rrr(t_memory *memory);
+
+/*
+**		UTILS
+*/
+
+bool	chrset(char c, char *set);
+bool	strset(char *str, char *set);
 
 #endif
