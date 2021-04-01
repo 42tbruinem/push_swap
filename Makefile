@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/29 17:16:35 by tbruinem      #+#    #+#                  #
-#    Updated: 2021/03/29 18:15:02 by tbruinem      ########   odam.nl          #
+#    Updated: 2021/03/31 12:23:14 by tbruinem      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,15 @@ CFLAGS = -Wall -Werror -Wextra
 ifdef DEBUG
 	CFLAGS += -g -fsanitize=address
 endif
+BUFFER_SIZE = 256
+
+CFLAGS += -D BUFFER_SIZE=$(BUFFER_SIZE)
 
 SRC =	list.c \
 		memory.c \
-		push_swap.c \
+		util.c \
+		util_strdtok.c \
+		parse_input.c \
 		stack.c
 
 OBJ := $(SRC:%.c=$(OBJ_DIR)%.o)

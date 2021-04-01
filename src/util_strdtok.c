@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   util_strtok.c                                      :+:    :+:            */
+/*   util_strdtok.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/31 11:20:05 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/31 11:57:48 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/31 12:00:40 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
 #include <stdio.h>
 
-char	*util_strtok(char *str, char *delimiter)
+/*
+**	Str tokenize, with the added modification that a string
+**	is not returned unless it's ended with atleast one delimiter
+*/
+char	*util_strdtok(char *str, char *delimiter)
 {
 	static char	*buffer = NULL;
 
@@ -26,6 +30,8 @@ char	*util_strtok(char *str, char *delimiter)
 	str = buffer;
 	while (*buffer && !chrset(*buffer, delimiter))
 		buffer++;
+	if (!chrset(*buffer, delimiter))
+		return (NULL);
 	while (chrset(*buffer, delimiter))
 	{
 		*buffer = '\0';

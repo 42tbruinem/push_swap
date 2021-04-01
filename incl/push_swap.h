@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/31 11:17:59 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/03/31 12:16:01 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,19 @@ void	rrb(t_memory *memory);
 void	rrr(t_memory *memory);
 
 /*
+**		PARSING
+*/
+
+int		*parse_input(size_t *size, int argc, char **argv);
+
+/*
 **		UTILS
 */
 
 bool	chrset(char c, char *set);
 bool	strset(char *str, char *set);
+char	*util_strdtok(char *str, char *delimiter);
+int		util_atoi(char *str);
+size_t	util_strlen(char *str);
 
 #endif
