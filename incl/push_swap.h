@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/31 12:16:01 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/01 13:31:50 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 
 int	error(char *errstr, size_t errstr_size, int exit_status);
 
+/*
+**		STRUCTS
+*/
+
 typedef struct s_list t_list;
 
 struct s_list
@@ -36,46 +40,33 @@ struct s_list
 	int		content;
 };
 
-typedef struct  s_stack
+typedef struct  s_lstack
 {
 	t_list		*head;
 	t_list		*tail;
 	size_t		size;
-}				t_stack;
+}				t_lstack;
+
+typedef struct	s_astack
+{
+	int			*data;
+	size_t		start;
+	size_t		end;
+	size_t		size;
+	int			incr;
+}				t_astack;
 
 typedef struct	s_memory
 {
-	t_stack		*a;
-	t_stack		*b;
+	t_lstack		*a;
+	t_lstack		*b;
 }				t_memory;
-
-/*
-**		LIST
-*/
-
-t_list	*list_popback(t_list **list);
-t_list	*list_popfront(t_list **list);
-void	list_pushback(t_list **list, t_list *elem);
-void	list_pushfront(t_list **list, t_list *elem);
-t_list	*list_new(int content);
-void	list_clear(t_list *list);
-
-/*
-**		STACK
-*/
-
-t_stack	*stack_init(size_t size, int *content);
-void	stack_pushfront(t_stack *stack, t_list *elem);
-void	stack_pushback(t_stack *stack, t_list *elem);
-t_list	*stack_popfront(t_stack *stack);
-t_list	*stack_popback(t_stack *stack);
-void 	stack_swap(t_stack *stack);
-void	stack_destroy(t_stack *stack);
-void	stack_print(char *title, size_t title_size, t_stack *stack);
 
 /*
 **		OPERATIONS
 */
+
+typedef void (*t_operation)(t_memory *memory);
 
 enum	e_op
 {
@@ -92,12 +83,29 @@ enum	e_op
 	OP_RRR
 };
 
-void	memory_perform_operation(t_memory *memory, char *operation);
-void	memory_destroy(t_memory *memory);
-void	memory_print(t_memory *memory);
-int		memory_init(t_memory *memory, int *content, size_t size);
+/*
+**		LIST
+*/
 
-typedef void (*t_operation)(t_memory *memory);
+t_list	*list_popback(t_list **list);
+t_list	*list_popfront(t_list **list);
+void	list_pushback(t_list **list, t_list *elem);
+void	list_pushfront(t_list **list, t_list *elem);
+t_list	*list_new(int content);
+void	list_clear(t_list *list);
+
+/*
+**		LIST_STACK
+*/
+
+t_lstack	*stack_init(size_t size, int *content);
+void	stack_pushfront(t_lstack *stack, t_list *elem);
+void	stack_pushback(t_lstack *stack, t_list *elem);
+t_list	*stack_popfront(t_lstack *stack);
+t_list	*stack_popback(t_lstack *stack);
+void 	stack_swap(t_lstack *stack);
+void	stack_destroy(t_lstack *stack);
+void	stack_print(char *title, size_t title_size, t_lstack *stack);
 
 void	sa(t_memory *memory);
 void	sb(t_memory *memory);
@@ -110,6 +118,15 @@ void	rr(t_memory *memory);
 void	rra(t_memory *memory);
 void	rrb(t_memory *memory);
 void	rrr(t_memory *memory);
+
+/*
+**		MEMORY
+*/
+
+void	memory_perform_operation(t_memory *memory, char *operation);
+void	memory_destroy(t_memory *memory);
+void	memory_print(t_memory *memory);
+int		memory_init(t_memory *memory, int *content, size_t size);
 
 /*
 **		PARSING

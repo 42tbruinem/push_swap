@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:42:20 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/30 12:16:04 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/01 13:30:41 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	util_numprint(int nb)
 	write(1, &c, 1);
 }
 
-void	stack_print(char *title, size_t title_size, t_stack *stack)
+void	stack_print(char *title, size_t title_size, t_lstack *stack)
 {
 	size_t	i;
 	t_list	*begin;
@@ -52,7 +52,7 @@ void	stack_print(char *title, size_t title_size, t_stack *stack)
 	write(1, "\n", 1);
 }
 
-t_list	*stack_popback(t_stack *stack)
+t_list	*stack_popback(t_lstack *stack)
 {
 	t_list	*elem;
 
@@ -65,7 +65,7 @@ t_list	*stack_popback(t_stack *stack)
 	return (elem);
 }
 
-t_list	*stack_popfront(t_stack *stack)
+t_list	*stack_popfront(t_lstack *stack)
 {
 	t_list	*elem;
 
@@ -78,7 +78,7 @@ t_list	*stack_popfront(t_stack *stack)
 	return (elem);
 }
 
-void	stack_pushback(t_stack *stack, t_list *elem)
+void	stack_pushback(t_lstack *stack, t_list *elem)
 {
 	if (!elem)
 		exit(error(ERR_MEMFAIL, sizeof(ERR_MEMFAIL), 1));
@@ -87,7 +87,7 @@ void	stack_pushback(t_stack *stack, t_list *elem)
 	stack->size++;
 }
 
-void	stack_pushfront(t_stack *stack, t_list *elem)
+void	stack_pushfront(t_lstack *stack, t_list *elem)
 {
 	list_pushfront(&stack->head, elem);
 	if (stack->tail == NULL)
@@ -95,13 +95,13 @@ void	stack_pushfront(t_stack *stack, t_list *elem)
 	stack->size++;
 }
 
-void	stack_destroy(t_stack *stack)
+void	stack_destroy(t_lstack *stack)
 {
 	list_clear(stack->head);
 	free(stack);
 }
 
-void	stack_swap(t_stack *stack)
+void	stack_swap(t_lstack *stack)
 {
 	t_list	*one;
 	t_list	*two;
@@ -114,12 +114,12 @@ void	stack_swap(t_stack *stack)
 	stack_pushfront(stack, two);
 }
 
-t_stack	*stack_init(size_t size, int *content)
+t_lstack	*stack_init(size_t size, int *content)
 {
-	t_stack	*stack;
+	t_lstack	*stack;
 	size_t	i;
 
-	stack = malloc(sizeof(t_stack));
+	stack = malloc(sizeof(t_lstack));
 	if (!stack)
 		return (NULL);
 	stack->size = size;
