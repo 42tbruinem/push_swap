@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/29 17:16:35 by tbruinem      #+#    #+#                  #
-#    Updated: 2021/03/31 12:23:14 by tbruinem      ########   odam.nl          #
+#    Updated: 2021/04/01 19:52:00 by tbruinem      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ checker push_swap: $$($$@_OBJS)
 
 clean:
 	rm -f $(OBJ)
+	rm -f $(OBJ_DIR)checker.o
+	rm -f $(OBJ_DIR)push_swap.o
 
 fclean: clean
 	rm -f checker push_swap
