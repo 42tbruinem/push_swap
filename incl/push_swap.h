@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/01 20:02:18 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/01 21:31:26 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_list		*stack_popback(t_lstack *stack);
 void 		stack_swap(t_lstack *stack);
 void		stack_destroy(t_lstack *stack);
 void		stack_print(char *title, size_t title_size, t_lstack *stack);
+bool		stack_check(t_lstack *stack);
 
 void	lstack_sa(t_memory *memory);
 void	lstack_sb(t_memory *memory);
@@ -127,6 +128,7 @@ void	memory_perform_operation(t_memory *memory, char *operation);
 void	memory_destroy(t_memory *memory);
 void	memory_print(t_memory *memory);
 int		memory_init(t_memory *memory, int *content, size_t size);
+bool	memory_check(t_memory *memory);
 
 /*
 **		PARSING

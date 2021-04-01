@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 16:26:07 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/01 20:21:39 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/01 21:31:15 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ void	lstack_rrr(t_memory *memory)
 /*
 **		MEMORY_FUNCTIONS
 */
+
+bool	memory_check(t_memory *memory)
+{
+	return (stack_check(memory->a) && stack_check(memory->b));
+}
 
 void	memory_print(t_memory *memory)
 {

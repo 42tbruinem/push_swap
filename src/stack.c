@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:42:20 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/01 20:21:15 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/01 21:32:44 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
 
 void	util_numprint(int nb)
 {
@@ -112,6 +113,22 @@ void	stack_swap(t_lstack *stack)
 	two = stack_popfront(stack);
 	stack_pushfront(stack, one);
 	stack_pushfront(stack, two);
+}
+
+bool	stack_check(t_lstack *stack)
+{
+	t_list	*iter;
+	int		last = INT_MIN;
+
+	iter = stack->head;
+	while (iter)
+	{
+		if (iter->content < last)
+			return (false);
+		last = iter->content;
+		iter = iter->next;
+	}
+	return (true);
 }
 
 t_lstack	*stack_init(size_t size, int *content)
