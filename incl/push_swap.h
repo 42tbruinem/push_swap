@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/01 13:31:50 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/01 20:02:18 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,25 +99,25 @@ void	list_clear(t_list *list);
 */
 
 t_lstack	*stack_init(size_t size, int *content);
-void	stack_pushfront(t_lstack *stack, t_list *elem);
-void	stack_pushback(t_lstack *stack, t_list *elem);
-t_list	*stack_popfront(t_lstack *stack);
-t_list	*stack_popback(t_lstack *stack);
-void 	stack_swap(t_lstack *stack);
-void	stack_destroy(t_lstack *stack);
-void	stack_print(char *title, size_t title_size, t_lstack *stack);
+void		stack_pushfront(t_lstack *stack, t_list *elem);
+void		stack_pushback(t_lstack *stack, t_list *elem);
+t_list		*stack_popfront(t_lstack *stack);
+t_list		*stack_popback(t_lstack *stack);
+void 		stack_swap(t_lstack *stack);
+void		stack_destroy(t_lstack *stack);
+void		stack_print(char *title, size_t title_size, t_lstack *stack);
 
-void	sa(t_memory *memory);
-void	sb(t_memory *memory);
-void	ss(t_memory *memory);
-void 	pa(t_memory *memory);
-void	pb(t_memory *memory);
-void	ra(t_memory *memory);
-void	rb(t_memory *memory);
-void	rr(t_memory *memory);
-void	rra(t_memory *memory);
-void	rrb(t_memory *memory);
-void	rrr(t_memory *memory);
+void	lstack_sa(t_memory *memory);
+void	lstack_sb(t_memory *memory);
+void	lstack_ss(t_memory *memory);
+void 	lstack_pa(t_memory *memory);
+void	lstack_pb(t_memory *memory);
+void	lstack_ra(t_memory *memory);
+void	lstack_rb(t_memory *memory);
+void	lstack_rr(t_memory *memory);
+void	lstack_rra(t_memory *memory);
+void	lstack_rrb(t_memory *memory);
+void	lstack_rrr(t_memory *memory);
 
 /*
 **		MEMORY

@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:42:20 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/01 13:30:41 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/01 20:21:15 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_lstack	*stack_init(size_t size, int *content)
 	stack = malloc(sizeof(t_lstack));
 	if (!stack)
 		return (NULL);
-	stack->size = size;
+	stack->size = 0;
 	stack->head = NULL;
 	stack->tail = NULL;
 	i = 0;
