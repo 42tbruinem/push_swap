@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:04 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 14:29:32 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 15:56:59 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,22 @@ int main(int argc, char **argv)
 {
 	t_memory	memory;
 	int			*content;
-	size_t		size;
+	size_t		capacity;
 
 	if (argc == 1)
 		return (error(ERR_INVALID_ARG, sizeof(ERR_INVALID_ARG), 1));
-	content = parse_input(&size, argc, argv);
-	if (!content || !memory_init(&memory, content, size))
+	content = parse_input(&capacity, argc, argv);
+	if (!content || !memory_init(&memory, content, capacity))
 		return (error(ERR_MEMFAIL, sizeof(ERR_MEMFAIL), 1));
 	free(content);
 	memory_print(&memory);
-	astack_reverse_rotate(memory.a);
+	astack_rotate(memory.a, -1);
+	memory_print(&memory);
+	astack_swap(memory.a);
+	memory_print(&memory);
+	astack_rotate(memory.a, 1);
+	memory_print(&memory);
+	astack_push(memory.a, memory.b);
 	memory_print(&memory);
 	// memory_print(&memory);
 	// astack_rotate(memory.a);

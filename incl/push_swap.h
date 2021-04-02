@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 14:33:49 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 15:55:35 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct  s_lstack
 {
 	t_list		*head;
 	t_list		*tail;
-	size_t		size;
+	size_t		capacity;
 }				t_lstack;
 
 typedef struct	s_astack
@@ -52,8 +52,9 @@ typedef struct	s_astack
 	int			*data;
 	size_t		start;
 	size_t		end;
-	size_t		size;
+	size_t		capacity;
 	int			incr;
+	size_t		size;
 }				t_astack;
 
 typedef struct	s_memory
@@ -124,8 +125,9 @@ void	lstack_rrr(t_memory *memory);
 **		ARRAY_STACK
 */
 
-void		astack_reverse_rotate(t_astack *stack);
-void		astack_rotate(t_astack *stack);
+void		astack_push(t_astack *from, t_astack *to);
+void		astack_swap(t_astack *stack);
+void		astack_rotate(t_astack *stack, int increment);
 void		astack_print(char *title, size_t title_size, t_astack *stack);
 t_astack	*astack_init(size_t size, int *content, bool a);
 void		astack_destroy(t_astack *stack);

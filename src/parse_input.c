@@ -6,19 +6,19 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/31 12:13:37 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/31 12:23:28 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 15:03:09 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
 #include <stdlib.h>
 
-static bool	duplicate(int number, int *content, size_t size)
+static bool	duplicate(int number, int *content, size_t capacity)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < size)
+	while (i < capacity)
 	{
 		if (number == content[i])
 			return (true);
@@ -27,7 +27,7 @@ static bool	duplicate(int number, int *content, size_t size)
 	return (false);
 }
 
-int	*parse_input(size_t *size, int argc, char **argv)
+int	*parse_input(size_t *capacity, int argc, char **argv)
 {
 	int		*numbers;
 	int		i;
@@ -45,6 +45,6 @@ int	*parse_input(size_t *size, int argc, char **argv)
 			exit(error(ERR_INVALID_ARG, sizeof(ERR_INVALID_ARG), 1));
 		i++;
 	}
-	*size = (size_t)(argc - 1);
+	*capacity = (size_t)(argc - 1);
 	return (numbers);
 }

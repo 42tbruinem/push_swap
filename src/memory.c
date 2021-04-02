@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 16:26:07 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 14:34:03 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 15:03:14 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void 	lstack_pa(t_memory *memory)
 	t_lstack	*stack;
 
 	stack = memory->b;
-	if (stack->size < 1)
+	if (stack->capacity < 1)
 		return ;
 	top_of_b = stack_popfront(memory->b);
 	if (!top_of_b)
@@ -70,7 +70,7 @@ void	lstack_pb(t_memory *memory)
 	t_lstack	*stack;
 
 	stack = memory->a;
-	if (stack->size < 1)
+	if (stack->capacity < 1)
 		return ;
 	top_of_a = stack_popfront(memory->a);
 	if (!top_of_a)
@@ -83,7 +83,7 @@ void	lstack_ra(t_memory *memory)
 	t_lstack	*stack;
 
 	stack = memory->a;
-	if (stack->size < 2)
+	if (stack->capacity < 2)
 		return ;
 	old_top = stack_popfront(memory->a);
 	stack_pushback(memory->a, old_top);
@@ -94,7 +94,7 @@ void	lstack_rb(t_memory *memory)
 	t_lstack	*stack;
 
 	stack = memory->b;
-	if (stack->size < 2)
+	if (stack->capacity < 2)
 		return ;
 	old_top = stack_popfront(memory->b);
 	stack_pushback(memory->b, old_top);
@@ -110,7 +110,7 @@ void	lstack_rra(t_memory *memory)
 	t_lstack	*stack;
 
 	stack = memory->a;
-	if (stack->size < 2)
+	if (stack->capacity < 2)
 		return ;
 	old_bottom = stack_popback(memory->a);
 	stack_pushfront(memory->a, old_bottom);
@@ -121,7 +121,7 @@ void	lstack_rrb(t_memory *memory)
 	t_lstack	*stack;
 
 	stack = memory->b;
-	if (stack->size < 2)
+	if (stack->capacity < 2)
 		return ;
 	old_bottom = stack_popback(memory->b);
 	stack_pushfront(memory->b, old_bottom);
@@ -147,12 +147,12 @@ void	memory_print(t_memory *memory)
 	astack_print("STACK B: ", sizeof("STACK B: "), memory->b);
 }
 
-int		memory_init(t_memory *memory, int *content, size_t size)
+int		memory_init(t_memory *memory, int *content, size_t capacity)
 {
-	memory->a = astack_init(size, content, true);
+	memory->a = astack_init(capacity, content, true);
 	if (!memory->a)
 		return (0);
-	memory->b = astack_init(size, content, false);
+	memory->b = astack_init(capacity, content, false);
 	if (!memory->b)
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:42:20 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 14:32:44 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 15:02:59 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ t_list	*stack_popback(t_lstack *stack)
 {
 	t_list	*elem;
 
-	if (!stack->size)
+	if (!stack->capacity)
 		return (NULL);
 	if (stack->tail)
 		stack->tail = stack->tail->prev;
 	elem = list_popback(&stack->head);
-	stack->size--;
+	stack->capacity--;
 	return (elem);
 }
 
@@ -70,12 +70,12 @@ t_list	*stack_popfront(t_lstack *stack)
 {
 	t_list	*elem;
 
-	if (!stack->size)
+	if (!stack->capacity)
 		return (NULL);
-	if (stack->size == 1)
+	if (stack->capacity == 1)
 		stack->tail = NULL;
 	elem = list_popfront(&stack->head);
-	stack->size--;
+	stack->capacity--;
 	return (elem);
 }
 
@@ -85,7 +85,7 @@ void	stack_pushback(t_lstack *stack, t_list *elem)
 		exit(error(ERR_MEMFAIL, sizeof(ERR_MEMFAIL), 1));
 	list_pushback(&stack->head, elem);
 	stack->tail = elem;
-	stack->size++;
+	stack->capacity++;
 }
 
 void	stack_pushfront(t_lstack *stack, t_list *elem)
@@ -93,7 +93,7 @@ void	stack_pushfront(t_lstack *stack, t_list *elem)
 	list_pushfront(&stack->head, elem);
 	if (stack->tail == NULL)
 		stack->tail = stack->head;
-	stack->size++;
+	stack->capacity++;
 }
 
 void	stack_destroy(t_lstack *stack)
@@ -107,7 +107,7 @@ void	stack_swap(t_lstack *stack)
 	t_list	*one;
 	t_list	*two;
 
-	if (stack->size < 2)
+	if (stack->capacity < 2)
 		return ;
 	one = stack_popfront(stack);
 	two = stack_popfront(stack);
@@ -131,7 +131,7 @@ bool	stack_check(t_lstack *stack)
 	return (true);
 }
 
-t_lstack	*stack_init(size_t size, int *content)
+t_lstack	*stack_init(size_t capacity, int *content)
 {
 	t_lstack	*stack;
 	size_t	i;
@@ -139,11 +139,11 @@ t_lstack	*stack_init(size_t size, int *content)
 	stack = malloc(sizeof(t_lstack));
 	if (!stack)
 		return (NULL);
-	stack->size = 0;
+	stack->capacity = 0;
 	stack->head = NULL;
 	stack->tail = NULL;
 	i = 0;
-	while (i < size)
+	while (i < capacity)
 	{
 		stack_pushback(stack, list_new(content[i]));
 		i++;
