@@ -6,12 +6,14 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/31 11:17:04 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/03/31 12:14:23 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 13:41:46 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
 
 bool	chrset(char c, char *set)
 {
@@ -57,6 +59,30 @@ int	util_atoi(char *str)
 	}
 	sign += (!sign);
 	return (res * sign);
+}
+
+void	*util_memcpy(void *dest, void *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		((unsigned char*)dest)[i] = ((unsigned char*)src)[i];
+		i++;
+	}
+	return (dest);
+}
+
+void	*util_memdup(void *src, size_t size)
+{
+	void	*mem;
+
+	mem = malloc(size);
+	if (!mem)
+		return (NULL);
+	util_memcpy(mem, src, size);
+	return (mem);
 }
 
 size_t	util_strlen(char *str)

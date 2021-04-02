@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/29 17:16:35 by tbruinem      #+#    #+#                  #
-#    Updated: 2021/04/01 19:52:00 by tbruinem      ########   odam.nl          #
+#    Updated: 2021/04/02 13:41:57 by tbruinem      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC =	list.c \
 		memory.c \
 		util.c \
 		util_strdtok.c \
+		astack.c \
 		parse_input.c \
 		stack.c
 

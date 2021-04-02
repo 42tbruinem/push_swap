@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:04 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/01 20:21:51 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 14:29:32 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,26 @@ int main(int argc, char **argv)
 	if (!content || !memory_init(&memory, content, size))
 		return (error(ERR_MEMFAIL, sizeof(ERR_MEMFAIL), 1));
 	free(content);
-	perform_op(&memory, NULL);
-	perform_op(&memory, "rb");
-	perform_op(&memory, "ra");
-	perform_op(&memory, "sa");
-	perform_op(&memory, "pb");
-	perform_op(&memory, "pa");
-	perform_op(&memory, "pb");
-	perform_op(&memory, "pb");
-	perform_op(&memory, "pb");
-	perform_op(&memory, "rb");
-	perform_op(&memory, "sb");
-	perform_op(&memory, "rra");
+	memory_print(&memory);
+	astack_reverse_rotate(memory.a);
+	memory_print(&memory);
+	// memory_print(&memory);
+	// astack_rotate(memory.a);
+	// memory_print(&memory);
+	// astack_rotate(memory.a);
+	// memory_print(&memory);
+	// perform_op(&memory, NULL);
+	// perform_op(&memory, "rb");
+	// perform_op(&memory, "ra");
+	// perform_op(&memory, "sa");
+	// perform_op(&memory, "pb");
+	// perform_op(&memory, "pa");
+	// perform_op(&memory, "pb");
+	// perform_op(&memory, "pb");
+	// perform_op(&memory, "pb");
+	// perform_op(&memory, "rb");
+	// perform_op(&memory, "sb");
+	// perform_op(&memory, "rra");
 	memory_destroy(&memory);
 	return (0);
 }
