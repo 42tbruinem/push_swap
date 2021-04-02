@@ -6,25 +6,13 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/02 13:26:48 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 15:57:44 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 19:19:30 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
-
-size_t		util_cap(size_t old, int incr, size_t cap)
-{
-	if (!incr)
-		return (old);
-	else if (incr > 0)
-		return ((old + incr) % cap);
-	else if ((size_t)(incr * -1) > old)
-		return (cap - ((incr * -1) - old));
-	return (old - incr);
-}
 
 void		astack_print(char *title, size_t title_size, t_astack *stack)
 {
@@ -33,18 +21,16 @@ void		astack_print(char *title, size_t title_size, t_astack *stack)
 
 	elements = 0;
 	i = stack->start;
-//	printf("start: %ld | end: %ld\n", stack->start, stack->end);
 	write(1, title, title_size);
 	while (elements < stack->size)
 	{
-		printf("%d", stack->data[i]);
+		util_putnum(stack->data[i]);
 		if (elements + 1 != stack->size)
-			printf(" ");
-		i = (i + 1) % stack->capacity;
+			write(1, " ", 1);
+		i = util_cap(i, 1, stack->capacity);
 		elements++;
-//		sleep(1);
 	}
-	printf("\n");
+	write(1, "\n", 1);
 }
 
 void		astack_rotate(t_astack *stack, int increment)

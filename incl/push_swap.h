@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 15:55:35 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 19:18:47 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,13 @@ void	list_pushfront(t_list **list, t_list *elem);
 t_list	*list_new(int content);
 void	list_clear(t_list *list);
 
+enum	e_stackop
+{
+	PUSH,
+	ROTATE,
+	SWAP,
+};
+
 /*
 **		LIST_STACK
 */
@@ -159,5 +166,7 @@ int		util_atoi(char *str);
 size_t	util_strlen(char *str);
 void	*util_memcpy(void *dest, void *src, size_t size);
 void	*util_memdup(void *src, size_t size);
+size_t	util_cap(size_t old, int incr, size_t cap);
+void	util_putnum(int num);
 
 #endif

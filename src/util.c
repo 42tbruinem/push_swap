@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/31 11:17:04 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 13:41:46 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 19:18:33 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,27 @@ bool	strset(char *str, char *set)
 		i++;
 	}
 	return (true);
+}
+
+void		util_putnum(int num)
+{
+	char	c;
+
+	if (num >= 10)
+		util_putnum(num / 10);
+	c = (num % 10) + '0';
+	write(1, &c, 1);
+}
+
+size_t		util_cap(size_t old, int incr, size_t cap)
+{
+	if (!incr)
+		return (old);
+	else if (incr > 0)
+		return ((old + incr) % cap);
+	else if ((size_t)(incr * -1) > old)
+		return (cap - ((incr * -1) - old));
+	return (old - incr);
 }
 
 int	util_atoi(char *str)
