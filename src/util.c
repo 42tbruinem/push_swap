@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/31 11:17:04 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 19:18:33 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 20:12:09 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-bool	chrset(char c, char *set)
+bool	util_chrset(char c, char *set)
 {
 	size_t	i;
 
@@ -29,26 +29,34 @@ bool	chrset(char c, char *set)
 	return (false);
 }
 
-bool	strset(char *str, char *set)
+bool	util_strset(char *str, char *set)
 {
 	size_t	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (!chrset(str[i], set))
+		if (!util_chrset(str[i], set))
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-void		util_putnum(int num)
+void	util_putnum(int nb)
 {
-	char	c;
+	char			c;
+	unsigned int	num;
 
-	if (num >= 10)
-		util_putnum(num / 10);
+	if (nb < 0)
+	{
+		write(1, "-", 1);
+		num = nb * -1;
+	}
+	else
+		num = nb;
+	if ((int)num >= 10)
+		util_putnum((int)num / 10);
 	c = (num % 10) + '0';
 	write(1, &c, 1);
 }
@@ -61,7 +69,7 @@ size_t		util_cap(size_t old, int incr, size_t cap)
 		return ((old + incr) % cap);
 	else if ((size_t)(incr * -1) > old)
 		return (cap - ((incr * -1) - old));
-	return (old - incr);
+	return (old + incr);
 }
 
 int	util_atoi(char *str)

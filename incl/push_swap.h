@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 15:39:56 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 19:18:47 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 20:17:44 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int	error(char *errstr, size_t errstr_size, int exit_status);
 /*
 **		STRUCTS
 */
+typedef struct s_memory t_memory;
+
+typedef void (*t_operation)(t_memory *memory);
 
 typedef struct s_list t_list;
 
@@ -57,17 +60,16 @@ typedef struct	s_astack
 	size_t		size;
 }				t_astack;
 
-typedef struct	s_memory
+struct	s_memory
 {
 	void		*a;
 	void		*b;
-}				t_memory;
+	t_operation	*operations;
+};
 
 /*
 **		OPERATIONS
 */
-
-typedef void (*t_operation)(t_memory *memory);
 
 enum	e_op
 {
@@ -106,15 +108,15 @@ enum	e_stackop
 **		LIST_STACK
 */
 
-t_lstack	*stack_init(size_t size, int *content);
-void		stack_pushfront(t_lstack *stack, t_list *elem);
-void		stack_pushback(t_lstack *stack, t_list *elem);
-t_list		*stack_popfront(t_lstack *stack);
-t_list		*stack_popback(t_lstack *stack);
-void 		stack_swap(t_lstack *stack);
-void		stack_destroy(t_lstack *stack);
-void		stack_print(char *title, size_t title_size, t_lstack *stack);
-bool		stack_check(t_lstack *stack);
+t_lstack	*lstack_init(size_t capacity, int *content, bool a);
+void		lstack_pushfront(t_lstack *stack, t_list *elem);
+void		lstack_pushback(t_lstack *stack, t_list *elem);
+t_list		*lstack_popfront(t_lstack *stack);
+t_list		*lstack_popback(t_lstack *stack);
+void 		lstack_swap(t_lstack *stack);
+void		lstack_destroy(t_lstack *stack);
+void		lstack_print(char *title, size_t title_size, t_lstack *stack);
+bool		lstack_check(t_lstack *stack);
 
 void	lstack_sa(t_memory *memory);
 void	lstack_sb(t_memory *memory);
@@ -128,6 +130,8 @@ void	lstack_rra(t_memory *memory);
 void	lstack_rrb(t_memory *memory);
 void	lstack_rrr(t_memory *memory);
 
+t_operation *lstack_operations();
+
 /*
 **		ARRAY_STACK
 */
@@ -138,6 +142,20 @@ void		astack_rotate(t_astack *stack, int increment);
 void		astack_print(char *title, size_t title_size, t_astack *stack);
 t_astack	*astack_init(size_t size, int *content, bool a);
 void		astack_destroy(t_astack *stack);
+
+void	astack_sa(t_memory *memory);
+void	astack_sb(t_memory *memory);
+void	astack_ss(t_memory *memory);
+void	astack_pa(t_memory *memory);
+void	astack_pb(t_memory *memory);
+void	astack_ra(t_memory *memory);
+void	astack_rb(t_memory *memory);
+void	astack_rr(t_memory *memory);
+void	astack_rra(t_memory *memory);
+void	astack_rrb(t_memory *memory);
+void	astack_rrr(t_memory *memory);
+
+t_operation *astack_operations();
 
 /*
 **		MEMORY
@@ -159,8 +177,8 @@ int		*parse_input(size_t *size, int argc, char **argv);
 **		UTILS
 */
 
-bool	chrset(char c, char *set);
-bool	strset(char *str, char *set);
+bool	util_chrset(char c, char *set);
+bool	util_strset(char *str, char *set);
 char	*util_strdtok(char *str, char *delimiter);
 int		util_atoi(char *str);
 size_t	util_strlen(char *str);

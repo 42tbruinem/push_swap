@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/31 12:13:37 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 15:03:09 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 19:32:11 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	*parse_input(size_t *capacity, int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (!strset(argv[i], "0123456789-"))
+		if (!util_strset(argv[i], "0123456789-"))
 			exit(error(ERR_INVALID_ARG, sizeof(ERR_INVALID_ARG), 1));
 		numbers[i - 1] = util_atoi(argv[i]);
 		if (duplicate(numbers[i - 1], numbers, i - 1))

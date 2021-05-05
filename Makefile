@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/03/29 17:16:35 by tbruinem      #+#    #+#                  #
-#    Updated: 2021/04/02 13:41:57 by tbruinem      ########   odam.nl          #
+#    Updated: 2021/05/05 12:13:03 by tbruinem      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ SRC =	list.c \
 		util.c \
 		util_strdtok.c \
 		astack.c \
-		parse_input.c \
-		stack.c
+		lstack.c \
+		parse_input.c
 
 OBJ := $(SRC:%.c=$(OBJ_DIR)%.o)
 SRC := $(SRC:%.c=$(SRC_DIR)%.c)
@@ -53,10 +53,7 @@ obj/%.o: src/%.c $(HEADER)
 $(NAME): checker push_swap
 
 .SECONDEXPANSION:
-push_swap_OBJS := $(OBJ_DIR)push_swap.o $(OBJ)
-checker_OBJS := $(OBJ_DIR)checker.o $(OBJ)
-
-checker push_swap: $$($$@_OBJS)
+checker push_swap: $(OBJ_DIR)$$@.o $(OBJ)
 	$(CC) $(CFLAGS) $(INCL) $^ -o $(@)
 
 clean:

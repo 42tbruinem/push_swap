@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 16:26:07 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/02 15:03:14 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 20:19:50 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,116 +35,20 @@ int		error(char *errstr, size_t errstr_size, int exit_status)
 }
 
 /*
-**		OPERATIONS
-*/
-
-void	lstack_sa(t_memory *memory)
-{
-	stack_swap(memory->a);
-}
-void	lstack_sb(t_memory *memory)
-{
-	stack_swap(memory->b);
-}
-void	lstack_ss(t_memory *memory)
-{
-	lstack_sa(memory);
-	lstack_sb(memory);
-}
-void 	lstack_pa(t_memory *memory)
-{
-	t_list		*top_of_b;
-	t_lstack	*stack;
-
-	stack = memory->b;
-	if (stack->capacity < 1)
-		return ;
-	top_of_b = stack_popfront(memory->b);
-	if (!top_of_b)
-		return ;
-	stack_pushfront(memory->a, top_of_b);
-}
-void	lstack_pb(t_memory *memory)
-{
-	t_list		*top_of_a;
-	t_lstack	*stack;
-
-	stack = memory->a;
-	if (stack->capacity < 1)
-		return ;
-	top_of_a = stack_popfront(memory->a);
-	if (!top_of_a)
-		return ;
-	stack_pushfront(memory->b, top_of_a);
-}
-void	lstack_ra(t_memory *memory)
-{
-	t_list	*old_top;
-	t_lstack	*stack;
-
-	stack = memory->a;
-	if (stack->capacity < 2)
-		return ;
-	old_top = stack_popfront(memory->a);
-	stack_pushback(memory->a, old_top);
-}
-void	lstack_rb(t_memory *memory)
-{
-	t_list		*old_top;
-	t_lstack	*stack;
-
-	stack = memory->b;
-	if (stack->capacity < 2)
-		return ;
-	old_top = stack_popfront(memory->b);
-	stack_pushback(memory->b, old_top);
-}
-void	lstack_rr(t_memory *memory)
-{
-	lstack_ra(memory);
-	lstack_rb(memory);
-}
-void	lstack_rra(t_memory *memory)
-{
-	t_list		*old_bottom;
-	t_lstack	*stack;
-
-	stack = memory->a;
-	if (stack->capacity < 2)
-		return ;
-	old_bottom = stack_popback(memory->a);
-	stack_pushfront(memory->a, old_bottom);
-}
-void	lstack_rrb(t_memory *memory)
-{
-	t_list		*old_bottom;
-	t_lstack	*stack;
-
-	stack = memory->b;
-	if (stack->capacity < 2)
-		return ;
-	old_bottom = stack_popback(memory->b);
-	stack_pushfront(memory->b, old_bottom);
-}
-void	lstack_rrr(t_memory *memory)
-{
-	lstack_rra(memory);
-	lstack_rrb(memory);
-}
-
-/*
 **		MEMORY_FUNCTIONS
 */
 
 bool	memory_check(t_memory *memory)
 {
-	return (stack_check(memory->a) && stack_check(memory->b));
+	return (lstack_check(memory->a) && lstack_check(memory->b));
 }
 
 void	memory_print(t_memory *memory)
 {
 	astack_print("STACK A: ", sizeof("STACK A: "), memory->a);
 	astack_print("STACK B: ", sizeof("STACK B: "), memory->b);
+//	lstack_print("STACK A: ", sizeof("STACK A: "), memory->a);
+//	lstack_print("STACK B: ", sizeof("STACK B: "), memory->b);
 }
 
 int		memory_init(t_memory *memory, int *content, size_t capacity)
@@ -155,6 +59,7 @@ int		memory_init(t_memory *memory, int *content, size_t capacity)
 	memory->b = astack_init(capacity, content, false);
 	if (!memory->b)
 		return (0);
+	memory->operations = astack_operations();
 	return (1);
 }
 
@@ -187,23 +92,10 @@ ssize_t	memory_get_operation(char *operation)
 void	memory_perform_operation(t_memory *memory, char *operation)
 {
 	ssize_t			index;
-	static const	t_operation		operations[] = {
-		[OP_SA] = &lstack_sa,
-		[OP_SB] = &lstack_sb,
-		[OP_SS] = &lstack_ss,
-		[OP_PA] = &lstack_pa,
-		[OP_PB] = &lstack_pb,
-		[OP_RA] = &lstack_ra,
-		[OP_RB] = &lstack_rb,
-		[OP_RR] = &lstack_rr,
-		[OP_RRA] = &lstack_rra,
-		[OP_RRB] = &lstack_rrb,
-		[OP_RRR] = &lstack_rrr,
-	};
 	index = memory_get_operation(operation);
 	if (index == -1)
 		exit(error(ERR_INVALID_OP, sizeof(ERR_INVALID_OP), 1));
-	operations[index](memory);
+	memory->operations[index](memory);
 }
 
 void	memory_destroy(t_memory *memory)

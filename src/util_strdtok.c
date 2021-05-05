@@ -6,7 +6,7 @@
 /*   By: tbruinem <tbruinem@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/31 11:20:05 by tbruinem      #+#    #+#                 */
-/*   Updated: 2021/04/01 21:01:06 by tbruinem      ########   odam.nl         */
+/*   Updated: 2021/04/02 19:32:10 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ char	*util_strdtok(char *str, char *delimiter)
 		buffer = str;
 	if (!str && (!buffer || !*buffer))
 		return (NULL);
-	while (chrset(*buffer, delimiter))
+	while (util_chrset(*buffer, delimiter))
 		buffer++;
 	str = buffer;
-	while (*buffer && !chrset(*buffer, delimiter))
+	while (*buffer && !util_chrset(*buffer, delimiter))
 		buffer++;
-	if (!chrset(*buffer, delimiter))
+	if (!util_chrset(*buffer, delimiter))
 		return (NULL);
-	while (chrset(*buffer, delimiter))
+	while (util_chrset(*buffer, delimiter))
 	{
 		*buffer = '\0';
 		buffer++;
